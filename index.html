@@ -30,16 +30,29 @@
 			font-family: 'Raleway', sans-serif;
 			fill: #333333;
 		}
+
+		.loading {
+			display: block;
+			height: 20px;
+			width: 90%;
+			margin: 1em auto;
+		}
+
+		#dept {
+			font-size: 1.4em;
+			padding: 0.4em;
+		}
 	</style>
 </head>
 
 <body>
+	<progress class="loading"></progress>
 	<select name="dept" id="dept">
 		<option disabled value="">Choose a Department</option>
 	</select>
 	<div class="polarChart" style="display: inline-flex;"></div>
 	<script>
-		const getUnique = (value, index, self) => {return self.indexOf(value) === index}
+		const getUnique = (value, index, self) => { return self.indexOf(value) === index }
 	</script>
 	<script>
 		//////////////////////////////////////////////////////////////
@@ -55,9 +68,11 @@
 		//////////////////////////////////////////////////////////////
 		const data_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRWX2zBAuC53eUqlOdDC8w7RDS5NDajWLozSQ78Ye1Jw7nWHq54o0QU0s1UNEJDYVC8mcJkjstJjRrf/pub?gid=1700202545&single=true&output=csv"
 
-		const parseData = results => {
+		const initApp = results => {
 			// console.log(results);
 			const chooser = document.querySelector("#dept");
+			chooser.addEventListener("change", e => triggerChange(e))
+			document.querySelector("progress").style.visibility = "hidden";
 
 			window.__data_depts = results.data.map(row => row['DEPARTMENT']).filter(getUnique);
 			__data_depts.forEach(dept => {
@@ -75,10 +90,32 @@
 		Papa.parse(data_url, {
 			download: true,
 			header: true,
-			complete: (results) => parseData(results)
+			complete: (results) => initApp(results)
 		});
 
 
+		let triggerChange = e => {
+			console.log(e);
+			let dept = e.target.value;
+			let data = __dataset.data.filter(row => row["DEPARTMENT"] == dept;
+			plotChart(data)
+		}
+
+		let plotChart = data => {
+			console.log(data)
+			let structuredData = [
+				{
+					name: "Male",
+					axes: data.map(row => {
+						return {
+							axis: row["MONTH_MMM"],
+							value: parseInt(row["MALE"])
+						}
+					})
+				}
+			]
+			console.log("structuredData", structuredData)
+		}
 
 		var data0 = [
 			{
