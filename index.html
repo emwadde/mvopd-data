@@ -112,9 +112,32 @@
 							value: parseInt(row["MALE"])
 						}
 					})
+				},
+				{
+					name: "Female",
+					axes: data.map(row => {
+						return {
+							axis: row["MONTH_MMM"],
+							value: parseInt(row["FEMALE"])
+						}
+					})
 				}
 			]
 			console.log("structuredData", structuredData)
+			var radarChartOptions = {
+				w: 290,
+				h: 350,
+				margin: margin,
+				maxValue: 60,
+				levels: 6,
+				roundStrokes: false,
+				color: d3.scaleOrdinal().range(["#AFC52F", "#ff6600"]),
+				format: '.0f',
+				legend: { title: 'Organization XYZ', translateX: 100, translateY: 40 },
+				unit: '$'
+			};
+
+			let chart1 = RadarChart(".polarChart", structuredData, radarChartOptions);
 		}
 
 		var data0 = [
@@ -144,18 +167,7 @@
 			}
 		];
 
-		var radarChartOptions = {
-			w: 290,
-			h: 350,
-			margin: margin,
-			maxValue: 60,
-			levels: 6,
-			roundStrokes: false,
-			color: d3.scaleOrdinal().range(["#AFC52F", "#ff6600"]),
-			format: '.0f',
-			legend: { title: 'Organization XYZ', translateX: 100, translateY: 40 },
-			unit: '$'
-		};
+
 
 		// Draw the chart, get a reference the created svg element
 		// let chart1 = RadarChart(".polarChart", data, radarChartOptions);
