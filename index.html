@@ -9,6 +9,8 @@
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300" rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 
+	<!-- PapaParse-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.1/papaparse.min.js"></script>
 	<!-- D3.js -->
 	<script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
 	<script src="https://d3js.org/d3-path.v1.min.js" charset="utf-8"></script>
@@ -45,7 +47,7 @@
 		//////////////////////////////////////////////////////////////
 		////////////////////////// Data //////////////////////////////
 		//////////////////////////////////////////////////////////////
-
+		const data_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRWX2zBAuC53eUqlOdDC8w7RDS5NDajWLozSQ78Ye1Jw7nWHq54o0QU0s1UNEJDYVC8mcJkjstJjRrf/pub?gid=1700202545&single=true&output=csv"
 		var data0 = [
 			{
 				name: 'Allocated budget',
@@ -73,8 +75,6 @@
 			}
 		];
 
-		console.log(data[0].color);
-
 		var radarChartOptions = {
 			w: 290,
 			h: 350,
@@ -89,7 +89,7 @@
 		};
 
 		// Draw the chart, get a reference the created svg element
-		// let chart1 = RadarChart(".radarChart2", data, radarChartOptions);
+		// let chart1 = RadarChart(".polarChart", data, radarChartOptions);
 	</script>
 </body>
 
