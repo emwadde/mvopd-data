@@ -57,8 +57,15 @@
 
 		const parseData = results => {
 			// console.log(results);
+			const chooser = document.querySelector("#dept");
+
 			window.__data_depts = results.data.map(row => row['DEPARTMENT']).filter(getUnique);
-			console.log(__data_depts)
+			__data_depts.forEach(dept => {
+				let opt = document.createElement("option");
+				opt.value = dept;
+				opt.text = dept;
+				chooser.add(opt)
+			})
 			window.__dataset = results;
 		}
 
