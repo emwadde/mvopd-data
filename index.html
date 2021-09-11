@@ -34,7 +34,13 @@
 </head>
 
 <body>
+	<select name="dept" id="dept">
+		<option disabled value="">Choose a Department</option>
+	</select>
 	<div class="polarChart" style="display: inline-flex;"></div>
+	<script>
+		const getUnique = (value, index, self) => {return self.indexOf(value) === index}
+	</script>
 	<script>
 		//////////////////////////////////////////////////////////////
 		//////////////////////// Set-Up //////////////////////////////
@@ -48,6 +54,25 @@
 		////////////////////////// Data //////////////////////////////
 		//////////////////////////////////////////////////////////////
 		const data_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRWX2zBAuC53eUqlOdDC8w7RDS5NDajWLozSQ78Ye1Jw7nWHq54o0QU0s1UNEJDYVC8mcJkjstJjRrf/pub?gid=1700202545&single=true&output=csv"
+
+		const parseData = results => {
+			// console.log(results);
+			window.__data_depts = results.data.map(row => row['DEPARTMENT']).filter(getUnique);
+			console.log(__data_depts)
+			window.__dataset = results;
+		}
+
+
+
+
+		Papa.parse(data_url, {
+			download: true,
+			header: true,
+			complete: (results) => parseData(results)
+		});
+
+
+
 		var data0 = [
 			{
 				name: 'Allocated budget',
