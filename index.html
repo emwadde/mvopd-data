@@ -103,7 +103,7 @@
 		let triggerChange = e => {
 			console.log(e);
 			let dept = e.target.value;
-			let data = __dataset.data.filter(row => row["DEPARTMENT"] == dept);
+			let data = __dataset.filter(row => row.dept == dept);
 			plotChart(dept, data)
 		}
 
@@ -114,8 +114,8 @@
 					name: "Male",
 					axes: data.map(row => {
 						return {
-							axis: row["MONTH_MMM"],
-							value: parseInt(row["MALE"])
+							axis: row.month_name,
+							value: parseInt(row.male)
 						}
 					})
 				},
@@ -123,8 +123,8 @@
 					name: "Female",
 					axes: data.map(row => {
 						return {
-							axis: row["MONTH_MMM"],
-							value: parseInt(row["FEMALE"])
+							axis: row.month_name,
+							value: parseInt(row.female)
 						}
 					})
 				}
