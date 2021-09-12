@@ -9,8 +9,6 @@
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300" rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 
-	<!-- PapaParse-->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.1/papaparse.min.js"></script>
 	<!-- D3.js -->
 	<script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
 	<script src="https://d3js.org/d3-path.v1.min.js" charset="utf-8"></script>
@@ -87,12 +85,20 @@
 
 
 
-		Papa.parse(data_url, {
-			download: true,
-			header: true,
-			complete: (results) => initApp(results)
-		});
+		d3.csv(data_url, (data) => initApp(data));
 
+		d3.csv(data_url, d => {
+			return {
+				dept: d.DEPARTMENT,
+				month_num: parseInt(d.MONTH_M),
+				month_name: d.MONTH_MMM,
+				male: parseInt(d.MALE),
+				female: parseInt(d.FEMALE)
+
+			};
+		}, (error, data) => {
+			initApp(rows);
+		});
 
 		let triggerChange = e => {
 			console.log(e);
@@ -134,7 +140,8 @@
 				color: d3.scaleOrdinal().range(["#AFC52F", "#ff6600"]),
 				format: '.0f',
 				legend: { title: 'Organization XYZ', translateX: 100, translateY: 40 },
-				unit: '$'
+				opacityCircles: 0.1,
+
 			};
 
 			let chart1 = RadarChart(".polarChart", structuredData, radarChartOptions);
