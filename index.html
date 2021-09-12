@@ -53,17 +53,13 @@
 		const getUnique = (value, index, self) => { return self.indexOf(value) === index }
 	</script>
 	<script>
-		//////////////////////////////////////////////////////////////
-		//////////////////////// Set-Up //////////////////////////////
-		//////////////////////////////////////////////////////////////
+		//layout setup
 
 		var margin = { top: 50, right: 80, bottom: 50, left: 80 },
 			width = Math.min(700, window.innerWidth / 4) - margin.left - margin.right,
 			height = Math.min(width, window.innerHeight - margin.top - margin.bottom);
 
-		//////////////////////////////////////////////////////////////
-		////////////////////////// Data //////////////////////////////
-		//////////////////////////////////////////////////////////////
+		// data fetching and inititalization
 		const data_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRWX2zBAuC53eUqlOdDC8w7RDS5NDajWLozSQ78Ye1Jw7nWHq54o0QU0s1UNEJDYVC8mcJkjstJjRrf/pub?gid=1700202545&single=true&output=csv"
 
 		const initApp = data => {
@@ -72,7 +68,7 @@
 			chooser.addEventListener("change", e => triggerChange(e))
 			document.querySelector("progress").style.visibility = "hidden";
 
-			window.__data_depts = data.map(row => row['DEPARTMENT']).filter(getUnique);
+			window.__data_depts = data.map(row => row.dept).filter(getUnique);
 			__data_depts.forEach(dept => {
 				let opt = document.createElement("option");
 				opt.value = dept;
@@ -81,11 +77,6 @@
 			})
 			window.__dataset = data;
 		}
-
-
-
-
-		d3.csv(data_url, (data) => initApp(data));
 
 		d3.csv(data_url, d => {
 			return {
