@@ -66,20 +66,20 @@
 		//////////////////////////////////////////////////////////////
 		const data_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRWX2zBAuC53eUqlOdDC8w7RDS5NDajWLozSQ78Ye1Jw7nWHq54o0QU0s1UNEJDYVC8mcJkjstJjRrf/pub?gid=1700202545&single=true&output=csv"
 
-		const initApp = results => {
-			// console.log(results);
+		const initApp = data => {
+			// console.log(data);
 			const chooser = document.querySelector("#dept");
 			chooser.addEventListener("change", e => triggerChange(e))
 			document.querySelector("progress").style.visibility = "hidden";
 
-			window.__data_depts = results.data.map(row => row['DEPARTMENT']).filter(getUnique);
+			window.__data_depts = data.map(row => row['DEPARTMENT']).filter(getUnique);
 			__data_depts.forEach(dept => {
 				let opt = document.createElement("option");
 				opt.value = dept;
 				opt.text = dept;
 				chooser.add(opt)
 			})
-			window.__dataset = results;
+			window.__dataset = data;
 		}
 
 
@@ -97,7 +97,7 @@
 
 			};
 		}, (error, data) => {
-			initApp(rows);
+			initApp(data);
 		});
 
 		let triggerChange = e => {
