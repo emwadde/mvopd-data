@@ -3,7 +3,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<title>Smoothed Radar Chart</title>
+	<title>Visualizations for MV OPD Data from 2000 to 2019</title>
 
 	<!-- Google fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300" rel='stylesheet' type='text/css'>
@@ -45,9 +45,11 @@
 
 <body>
 	<progress class="loading"></progress>
-	<select name="dept" id="dept">
-		<option selected disabled value="">Choose a Department</option>
-	</select>
+	<div>
+		<select name="dept" id="dept">
+			<option selected disabled value="">Choose a Department</option>
+		</select>
+	</div>
 	<div class="polarChart" style="display: inline-flex;"></div>
 	<script>
 		const getUnique = (value, index, self) => { return self.indexOf(value) === index }
@@ -130,7 +132,7 @@
 				roundStrokes: false,
 				color: d3.scaleOrdinal().range(["#AFC52F", "#ff6600"]),
 				format: '.0f',
-				legend: { title: title, translateX: 100, translateY: 40 },
+				legend: { title: title, translateX: 800, translateY: 0 },
 				opacityCircles: 0.1,
 
 			};
