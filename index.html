@@ -104,10 +104,10 @@
 			console.log(e);
 			let dept = e.target.value;
 			let data = __dataset.data.filter(row => row["DEPARTMENT"] == dept);
-			plotChart(data)
+			plotChart(dept, data)
 		}
 
-		let plotChart = data => {
+		let plotChart = (title, data) => {
 			console.log(data)
 			let structuredData = [
 				{
@@ -139,7 +139,7 @@
 				roundStrokes: false,
 				color: d3.scaleOrdinal().range(["#AFC52F", "#ff6600"]),
 				format: '.0f',
-				legend: { title: 'Organization XYZ', translateX: 100, translateY: 40 },
+				legend: { title: title, translateX: 100, translateY: 40 },
 				opacityCircles: 0.1,
 
 			};
